@@ -23,18 +23,6 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let username = UserDefaults.standard.value(forKey: "name") as? String ?? ""
-        let userEmail = UserDefaults.standard.value(forKey: "email") as? String ?? ""
-        
-        data.append(ProfileViewModel(profileType: .info, title: "Name: \(username)", handler: nil))
-        data.append(ProfileViewModel(profileType: .info, title: "Email: \(userEmail)", handler: nil))
-        data.append(ProfileViewModel(profileType: .logout, title: "Log Out", handler: { [weak self] in
-            self?.logoutButtonPressed()
-        }))
-        
-        tableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: UserProfileTableViewCell.identifier)
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,6 +30,39 @@ class UserProfileViewController: UIViewController {
         
         spinner.show(in: view)
         configureTableHeader()
+        createTableForUserDetails()
+        configureTableView()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        data.removeAll()
+    }
+    
+    
+    private func configureTableView() {
+        tableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: UserProfileTableViewCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    private func createTableForUserDetails() {
+        guard let username = UserDefaults.standard.value(forKey: "name") as? String,
+              let userEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            print("Error in Retrive Data")
+            return
+        }
+        
+        data.append(ProfileViewModel(profileType: .info, title: "Name: \(username)", handler: nil))
+        data.append(ProfileViewModel(profileType: .info, title: "Email: \(userEmail)", handler: nil))
+        data.append(ProfileViewModel(profileType: .logout, title: "Log Out", handler: { [weak self] in
+            self?.logoutButtonPressed()
+        }))
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func configureTableHeader() {
@@ -54,7 +75,7 @@ class UserProfileViewController: UIViewController {
             return nil
         }
         
-        let safeEmail = DatabaseManager.safeEmail(email: email)
+        let safeEmail = Utility.safeEmail(email: email)
         let fileName = safeEmail + "_profile_picture.png"
         let path = "images/" + fileName
         print(path)
@@ -167,14 +188,3 @@ extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource 
     }
 
 }
-
-enum ProfileViewModelType {
-    case info, logout
-}
-
-struct ProfileViewModel {
-    let profileType: ProfileViewModelType
-    let title: String
-    let handler: (() -> ())?
-}
-

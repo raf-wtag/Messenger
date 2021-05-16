@@ -29,6 +29,7 @@
 		FFDDEC992650E9C6002002F6 /* SearchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDDEC982650E9C6002002F6 /* SearchUserViewController.swift */; };
 		FFDDEC9C2650E9D1002002F6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDDEC9B2650E9D1002002F6 /* UserProfileViewController.swift */; };
 		FFDDEC9F2650E9DD002002F6 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDDEC9E2650E9DD002002F6 /* ConversationViewController.swift */; };
+		FFE859FA2651034C00A73BFB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE859F92651034C00A73BFB /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		FFDDEC982650E9C6002002F6 /* SearchUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUserViewController.swift; sourceTree = "<group>"; };
 		FFDDEC9B2650E9D1002002F6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		FFDDEC9E2650E9DD002002F6 /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		FFE859F92651034C00A73BFB /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				FF0EC06326302DF000985392 /* DatabaseManager.swift */,
 				FF91CFCD263173AD00D832AC /* StorageManager.swift */,
 				FF0EC03D262FF27500985392 /* Extensions.swift */,
+				FFE859F92651034C00A73BFB /* Utility.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			files = (
 				FFDDEC962650E9B9002002F6 /* AllConversationsViewController.swift in Sources */,
 				FF7F1210263EC59400465E50 /* SearchUserTableViewCell.swift in Sources */,
+				FFE859FA2651034C00A73BFB /* Utility.swift in Sources */,
 				FF0EC02A262FEA6A00985392 /* UserLoginViewController.swift in Sources */,
 				FFDDEC992650E9C6002002F6 /* SearchUserViewController.swift in Sources */,
 				FF0EC06426302DF000985392 /* DatabaseManager.swift in Sources */,

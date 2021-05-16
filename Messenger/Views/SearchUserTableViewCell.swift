@@ -24,6 +24,7 @@ class SearchUserTableViewCell: UITableViewCell{
     private let userNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 19, weight: .semibold)
+        
         return label
     }()
     

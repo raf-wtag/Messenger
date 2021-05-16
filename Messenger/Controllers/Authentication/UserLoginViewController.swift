@@ -122,13 +122,6 @@ class UserLoginViewController: UIViewController {
         scrollView.addSubview(loginByGogoleButton)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print("UserDefaults", UserDefaults.standard.value(forKey: "email") as? String)
-        print("UserDefaults", UserDefaults.standard.value(forKey: "name") as? String)
-    }
-    
     deinit {
         if let observer = googleLoginObserver {
             NotificationCenter.default.removeObserver(observer)
@@ -195,7 +188,7 @@ class UserLoginViewController: UIViewController {
             
             let user = result.user
             
-            let safeEmail = DatabaseManager.safeEmail(email: email)
+            let safeEmail = Utility.safeEmail(email: email)
             DatabaseManager.shared.getDataFor(path: safeEmail, completion: { result in
                 switch result {
                 

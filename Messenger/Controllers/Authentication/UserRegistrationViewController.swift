@@ -21,12 +21,14 @@ class UserRegistrationViewController: UIViewController {
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.lightGray.cgColor
+        
         return imageView
     }()
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
+        
         return scrollView
     }()
     

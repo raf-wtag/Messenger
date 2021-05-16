@@ -84,13 +84,13 @@ struct Media: MediaItem {
     var size: CGSize
 }
 
-//enum ProfileViewModelType {
-//    case info, logout
-//}
-//
-//struct ProfileViewModel {
-//    let profileType: ProfileViewModelType
-//    let title: String
-//    let handler: (() -> ())?
-//}
+enum ProfileViewModelType {
+    case info, logout
+}
+
+struct ProfileViewModel {
+    let profileType: ProfileViewModelType
+    let title: String
+    let handler: (() -> ())?
+}
 

@@ -14,12 +14,6 @@ final class DatabaseManager {
     static let shared = DatabaseManager()
             
     private let database = Database.database().reference()
-    
-    static func safeEmail(email: String) -> String {
-        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
-        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
-        return safeEmail
-    }
 
 }
 
@@ -37,7 +31,7 @@ extension DatabaseManager {
     public func userExists(with email: String,
                            completionHandler: @escaping ((Bool) -> ())) {
         
-        let safeEmail = DatabaseManager.safeEmail(email: email)
+        let safeEmail = Utility.safeEmail(email: email)
         
         database.child(safeEmail).observeSingleEvent(of: .value, with: { snapShot in
             guard snapShot.value as? [String: Any] != nil else {
@@ -119,7 +113,7 @@ extension DatabaseManager {
               let currentName = UserDefaults.standard.value(forKey: "name") as? String else {
             return
         }
-        let safeEmail = DatabaseManager.safeEmail(email: currentEmail)
+        let safeEmail = Utility.safeEmail(email: currentEmail)
         
         let reference = database.child("\(safeEmail)")
         reference.observeSingleEvent(of: .value, with: { [weak self] snapshot in
@@ -252,7 +246,7 @@ extension DatabaseManager {
             return
         }
         
-        let currentUserEmail = DatabaseManager.safeEmail(email: _email)
+        let currentUserEmail = Utility.safeEmail(email: _email)
         
         let messageStruct: [String: Any] = [
             "id" : firstMessage.messageId,
@@ -383,7 +377,7 @@ extension DatabaseManager {
             return
         }
         
-        let currentUserEmail = DatabaseManager.safeEmail(email: email)
+        let currentUserEmail = Utility.safeEmail(email: email)
         
         self.database.child("\(conversation)/message").observeSingleEvent(of: .value, with: { [weak self] snapshot in
             guard let strongSelf = self else {
@@ -478,7 +472,7 @@ extension DatabaseManager {
                         } else {
                             let newConversationData: [String : Any] = [
                                 "id": conversation,
-                                "other_user_email" : DatabaseManager.safeEmail(email: otherUserEmail),
+                                "other_user_email" : Utility.safeEmail(email: otherUserEmail),
                                 "name" : name,
                                 "latest_message" : updatedValue
                             ]
@@ -488,7 +482,7 @@ extension DatabaseManager {
                     } else {
                         let newConversationData: [String : Any] = [
                             "id": conversation,
-                            "other_user_email" : DatabaseManager.safeEmail(email: otherUserEmail),
+                            "other_user_email" : Utility.safeEmail(email: otherUserEmail),
                             "name" : name,
                             "latest_message" : updatedValue
                         ]
@@ -537,7 +531,7 @@ extension DatabaseManager {
                                 } else {
                                     let newConversationData: [String : Any] = [
                                         "id": conversation,
-                                        "other_user_email" : DatabaseManager.safeEmail(email: currentUserEmail),
+                                        "other_user_email" : Utility.safeEmail(email: currentUserEmail),
                                         "name" : currentUserName,
                                         "latest_message" : updatedValue
                                     ]
@@ -548,7 +542,7 @@ extension DatabaseManager {
                             } else {
                                 let newConversationData: [String : Any] = [
                                     "id": conversation,
-                                    "other_user_email" : DatabaseManager.safeEmail(email: currentUserEmail),
+                                    "other_user_email" : Utility.safeEmail(email: currentUserEmail),
                                     "name" : currentUserName,
                                     "latest_message" : updatedValue
                                 ]
@@ -575,12 +569,12 @@ extension DatabaseManager {
     }
     
     public func conversationExists(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> ()) {
-        let safeRecipientEmail = DatabaseManager.safeEmail(email: targetRecipientEmail)
+        let safeRecipientEmail = Utility.safeEmail(email: targetRecipientEmail)
         
         guard let senderEmail = UserDefaults.standard.value(forKey: "email") as? String else {
             return
         }
-        let safeSenderEmail = DatabaseManager.safeEmail(email: senderEmail)
+        let safeSenderEmail = Utility.safeEmail(email: senderEmail)
         
         database.child("\(safeRecipientEmail)/conversations").observeSingleEvent(of: .value, with: { snapshot in
             guard let collection = snapshot.value as? [[String: Any]] else {
@@ -610,7 +604,7 @@ extension DatabaseManager {
             print("Error in retrived emial from userDefaults in retrivedEmail()")
             return
         }
-        let currentUserEmail = DatabaseManager.safeEmail(email: retrivedEmail)
+        let currentUserEmail = Utility.safeEmail(email: retrivedEmail)
 
         let databaseReference = database.child("\(currentUserEmail)/conversations")
         

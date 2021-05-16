@@ -105,7 +105,7 @@ extension SearchUserViewController: UISearchBarDelegate {
             return
         }
         
-        let safeEmail = DatabaseManager.safeEmail(email: currentUserEmail)
+        let safeEmail = Utility.safeEmail(email: currentUserEmail)
         
         self.spinner.dismiss()
         

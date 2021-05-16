@@ -19,6 +19,7 @@ class AllConversationsViewController: UIViewController {
         let table = UITableView()
         table.isHidden = true
         table.register(AllConversationsTableViewCell.self, forCellReuseIdentifier: AllConversationsTableViewCell.identifier)
+        
         return table
     }()
     
@@ -28,6 +29,7 @@ class AllConversationsViewController: UIViewController {
         label.text = "Start a Conversation"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 21, weight: .medium)
+        
         return label
     }()
     
@@ -65,7 +67,7 @@ class AllConversationsViewController: UIViewController {
             let currentConversations = strongSelf.conversations
             
             if let targetConversation = currentConversations.first(where: {
-                $0.otherUserEmail == DatabaseManager.safeEmail(email: result.email)
+                $0.otherUserEmail == Utility.safeEmail(email: result.email)
             }) {
                 let vc = ConversationViewController(with: targetConversation.otherUserEmail, id: targetConversation.id)
                 vc.isNewConversation = false
@@ -125,7 +127,7 @@ class AllConversationsViewController: UIViewController {
             return
         }
         print("Starting Conversation fetch")
-        let safeEmail = DatabaseManager.safeEmail(email: email)
+        let safeEmail = Utility.safeEmail(email: email)
         
         DatabaseManager.shared.getAllConversation(for:safeEmail, completion: { [weak self] result in
             switch result {
@@ -167,7 +169,7 @@ class AllConversationsViewController: UIViewController {
         }
         let loggedInUsersEmail = availableUser.email! as String
         print("Logged in user Email: ", loggedInUsersEmail)
-        UserDefaults.standard.set(loggedInUsersEmail, forKey: "email")
+//        UserDefaults.standard.set(loggedInUsersEmail, forKey: "email")
         startListeningForConversations()
         
 //        if Auth.auth().currentUser == nil {

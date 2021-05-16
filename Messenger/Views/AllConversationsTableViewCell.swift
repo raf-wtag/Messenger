@@ -24,6 +24,7 @@ class AllConversationsTableViewCell: UITableViewCell{
     private let userNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 19, weight: .semibold)
+        
         return label
     }()
     
@@ -31,6 +32,7 @@ class AllConversationsTableViewCell: UITableViewCell{
         let label = UILabel()
         label.font = .systemFont(ofSize: 19, weight: .regular)
         label.numberOfLines = 0
+        
         return label
     }()
     

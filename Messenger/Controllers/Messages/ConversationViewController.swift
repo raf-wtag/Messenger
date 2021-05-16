@@ -31,7 +31,7 @@ class ConversationViewController: MessagesViewController {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return nil
         }
-        let safeEmail = DatabaseManager.safeEmail(email: email)
+        let safeEmail = Utility.safeEmail(email: email)
         
         return Sender(photoURL: "",
                senderId: safeEmail,
@@ -289,7 +289,7 @@ extension ConversationViewController: InputBarAccessoryViewDelegate {
             return nil
         }
         
-        let safeEmail = DatabaseManager.safeEmail(email: currentUserEmail)
+        let safeEmail = Utility.safeEmail(email: currentUserEmail)
         let dateString = Self.dateFormatter.string(from: Date())
         
         let newID = "\(otherUserEmail)_\(safeEmail)_\(dateString)"
