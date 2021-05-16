@@ -13,6 +13,9 @@ import AVKit
 
 class ConversationViewController: MessagesViewController {
     
+    private var senderPhotoURL: URL?
+    private var receiverPhotoURL: URL?
+    
     public static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM_dd_yyyy_h_mm_ss"
@@ -214,6 +217,65 @@ extension ConversationViewController: MessagesDataSource, MessagesLayoutDelegate
             imageView.sd_setImage(with: imageURL, completed: nil)
         default:
             break
+        }
+    }
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        let sender = message.sender
+        
+        if sender.senderId == selfSender?.senderId {
+            return .link
+        }
+        return .secondarySystemBackground
+    }
+    
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        let sender = message.sender
+        
+        if sender.senderId == selfSender?.senderId {
+            if let currentUserImageURL = self.senderPhotoURL {
+                avatarView.sd_setImage(with: currentUserImageURL, completed: nil)
+            } else {
+                guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+                    return
+                }
+                
+                let safeEmail = Utility.safeEmail(email: email)
+                let path = "images/\(safeEmail)_profile_picture.png"
+                
+                StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
+                    switch result {
+                    case .success(let url):
+                        self?.senderPhotoURL = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url, completed: nil)
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+            }
+        } else {
+            if let otherUserImageURL = self.receiverPhotoURL {
+                avatarView.sd_setImage(with: otherUserImageURL, completed: nil)
+            } else {
+                let email = self.otherUserEmail
+                
+                let safeEmail = Utility.safeEmail(email: email)
+                let path = "images/\(safeEmail)_profile_picture.png"
+                
+                StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
+                    switch result {
+                    case .success(let url):
+                        self?.receiverPhotoURL = url
+                        DispatchQueue.main.async {
+                            avatarView.sd_setImage(with: url, completed: nil)
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+            }
         }
     }
 }

@@ -45,6 +45,7 @@ class UserProfileViewController: UIViewController {
         tableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: UserProfileTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
     }
     
     private func createTableForUserDetails() {
@@ -81,7 +82,7 @@ class UserProfileViewController: UIViewController {
         print(path)
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 300))
-        headerView.backgroundColor = .blue
+        headerView.backgroundColor = .secondarySystemBackground
         let imageView = UIImageView(frame: CGRect(x: (headerView.width-150)/2, y: 75, width: 150, height: 150))
         imageView.contentMode = .scaleToFill
         imageView.backgroundColor = .white

@@ -89,6 +89,7 @@ class AllConversationsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.isHidden = false
+        tableView.tableFooterView = UIView()
     }
         
     func createNewConversation(conversation: SearchResult) {

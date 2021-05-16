@@ -28,6 +28,7 @@ class SearchUserViewController: UIViewController {
         let tableView = UITableView()
         tableView.isHidden = true
         tableView.register(SearchUserTableViewCell.self, forCellReuseIdentifier: SearchUserTableViewCell.identifier)
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     
