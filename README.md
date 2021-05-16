@@ -9,22 +9,22 @@
     
 ### ScreenShots
     
-    Login:
-    ![Login](./readme_assets/Login.png)
-    
-    Registration:
-    ![Registration](./readme_assets/Registration.png)
-    
-    userProfile:
-    ![Profile](./readme_assets/Profile.png)
-    
-    AllConversationsList:
-    ![AllConversations](./readme_assets/conversations.png)
-    
-    Conversation:
-    ![Chat](./readme_assets/messages.png)
-    
-    SearchUser:
-    ![Registration](./readme_assets/user_search.png)
+Login: <br>
+![Login](./readme_assets/Login.png) <br>
+
+Registration: <br>
+![Registration](./readme_assets/Registration.png) <br>
+
+userProfile: <br>
+![Profile](./readme_assets/Profile.png) <br>
+
+AllConversationsList: <br>
+![AllConversations](./readme_assets/conversations.png) <br>
+
+Conversation: <br>
+![Chat](./readme_assets/messages.png) <br>
+ 
+SearchUser: <br>
+![Registration](./readme_assets/user_search.png) <br>
 
 
