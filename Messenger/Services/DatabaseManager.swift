@@ -337,7 +337,7 @@ extension DatabaseManager {
                     
                 } else if type == "video" {
                     guard let targetURL = URL(string: content),
-                          let placeholder = UIImage(systemName: "stop") else {
+                          let placeholder = UIImage(named: "playButton") else {
                         return nil
                     }
                     

@@ -78,26 +78,33 @@ final class StorageManager {
     }
     
     public func uploadVideoMessage(with urlVideo: URL, fileName: String, completion: @escaping uploadPictureCompletionType) {
-        storage.child("message_videos/\(fileName)").putFile(from: urlVideo, metadata: nil, completion: { [weak self] metadata, error in
-            guard error == nil else {
-                print("Failed to upload video in firebase")
-                completion(.failure(storageErrors.failedToUpload))
-                return
-            }
-            
-            self?.storage.child("message_videos/\(fileName)").downloadURL(completion: {url, error in
-                guard let url = url else {
-                    print("Video Download Failed from Firebase")
-                    completion(.failure(storageErrors.failedToDownloadURL))
+        
+        if let videoData = NSData(contentsOf: urlVideo) as Data? {
+            storage.child("message_videos/\(fileName)").putData(videoData, metadata: nil) { [weak self] metadata, error in
+                guard error == nil else {
+                    print("Failed to upload photo in firebase")
+                    completion(.failure(storageErrors.failedToUpload))
                     return
                 }
                 
-                let urlString = url.absoluteString
-                print("Video Download URL is - ", urlString)
-                completion(.success(urlString))
-            })
-            
-        })
+            //        storage.child("message_videos/\(fileName)").putFile(from: urlVideo, metadata: nil) { [weak self] metadata, error in
+            //            guard error == nil else {
+            //                completion(.failure(storageErrors.failedToUpload))
+            //                return
+            //            }
+                
+                self?.storage.child("message_videos/\(fileName)").downloadURL(completion: {url, error in
+                    guard let url = url else {
+                        print("Video Download Failed from Firebase")
+                        completion(.failure(storageErrors.failedToDownloadURL))
+                        return
+                    }
+                    
+                    let urlString = url.absoluteString
+                    print("Video Download URL is - ", urlString)
+                    completion(.success(urlString))
+                })
+            }
+        }
     }
-    
 }

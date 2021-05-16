@@ -9,7 +9,6 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import SDWebImage
-import AVFoundation
 import AVKit
 
 class ConversationViewController: MessagesViewController {
@@ -52,7 +51,7 @@ class ConversationViewController: MessagesViewController {
                 self?.messages = messages
                 
                 DispatchQueue.main.async {
-                    self?.messagesCollectionView.reloadDataAndKeepOffset()
+                    self?.messagesCollectionView.reloadData()
                 }
                 
             case .failure(let error):
@@ -164,7 +163,7 @@ class ConversationViewController: MessagesViewController {
             self?.present(picker, animated: true)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
+        actionSheet.addAction(UIAlertAction(title: "Library", style: .default, handler: { [weak self] _ in
             let picker = UIImagePickerController()
             picker.sourceType = .photoLibrary
             picker.delegate = self
@@ -305,6 +304,7 @@ extension ConversationViewController: UIImagePickerControllerDelegate, UINavigat
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         picker.dismiss(animated: true, completion: nil)
         guard let messageID = createMessageId(),
               let conversationId = conversationId,
@@ -355,7 +355,7 @@ extension ConversationViewController: UIImagePickerControllerDelegate, UINavigat
                 
             })
         } else if let videoURL = info[.mediaURL] as? URL {
-            let fileName = "video_message" + messageID + ".mov"
+            let fileName = "video_message_" + messageID + ".mov"
             
             StorageManager.shared.uploadVideoMessage(with: videoURL, fileName: fileName, completion: { [weak self] result in
                 guard let self = self else {
@@ -385,14 +385,14 @@ extension ConversationViewController: UIImagePickerControllerDelegate, UINavigat
                         switch success {
                         
                         case true:
-                            print("sent photo message")
+                            print("sent video message")
                         case false:
-                            print("failed to send photo message")
+                            print("failed to send video message")
                         }
                     })
                     
                 case .failure(let error):
-                    print("Photo message upload error with \(error)")
+                    print("Video message upload error with \(error)")
                 }
                 
             })
