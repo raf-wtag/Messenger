@@ -130,7 +130,7 @@ extension DatabaseManager {
             }
             
             let messageDate = firstMessage.sentDate
-            let dateString = ChatViewController.dateFormatter.string(from: messageDate)
+            let dateString = ConversationViewController.dateFormatter.string(from: messageDate)
             
             var message = ""
             
@@ -221,7 +221,7 @@ extension DatabaseManager {
     private func finishedCreatingConversation(conversationID: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> ()) {
        
         let messageDate = firstMessage.sentDate
-        let dateString = ChatViewController.dateFormatter.string(from: messageDate)
+        let dateString = ConversationViewController.dateFormatter.string(from: messageDate)
         var message = ""
         
         switch firstMessage.kind {
@@ -322,7 +322,7 @@ extension DatabaseManager {
                      let senderEmail = dictionary["sender_email"] as? String,
                      let type = dictionary["type"] as? String,
                      let dateString = dictionary["date"] as? String,
-                     let date = ChatViewController.dateFormatter.date(from: dateString) else {
+                     let date = ConversationViewController.dateFormatter.date(from: dateString) else {
                 print("Error in guard ...")
                 return nil
                }
@@ -395,7 +395,7 @@ extension DatabaseManager {
             }
             
             let messageDate = newMessage.sentDate
-            let dateString = ChatViewController.dateFormatter.string(from: messageDate)
+            let dateString = ConversationViewController.dateFormatter.string(from: messageDate)
             var message = ""
             
             switch newMessage.kind {

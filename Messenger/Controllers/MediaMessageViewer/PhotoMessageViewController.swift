@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoViewerViewController: UIViewController {
+class PhotoMessageViewController: UIViewController {
 
     private let url: URL
     

@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class NewConversationViewController: UIViewController {
+class SearchUserViewController: UIViewController {
     
     public var completion : ((SearchResult) -> ())?
     
@@ -70,7 +70,7 @@ class NewConversationViewController: UIViewController {
 
 }
 
-extension NewConversationViewController: UISearchBarDelegate {
+extension SearchUserViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.replacingOccurrences(of: " ", with: "").isEmpty else {
             return
@@ -140,7 +140,7 @@ extension NewConversationViewController: UISearchBarDelegate {
     }
 }
 
-extension NewConversationViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchUserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return results.count
     }

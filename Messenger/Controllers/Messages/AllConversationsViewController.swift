@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class ConversationViewController: UIViewController {
+class AllConversationsViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
     
@@ -18,7 +18,7 @@ class ConversationViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
-        table.register(ConversationsTableViewCell.self, forCellReuseIdentifier: ConversationsTableViewCell.identifier)
+        table.register(AllConversationsTableViewCell.self, forCellReuseIdentifier: AllConversationsTableViewCell.identifier)
         return table
     }()
     
@@ -56,7 +56,7 @@ class ConversationViewController: UIViewController {
     }
     
     @objc private func didTapComposeButtion() {
-        let vc = NewConversationViewController()
+        let vc = SearchUserViewController()
         vc.completion = { [weak self] result in
             guard let strongSelf = self else {
                 return
@@ -67,7 +67,7 @@ class ConversationViewController: UIViewController {
             if let targetConversation = currentConversations.first(where: {
                 $0.otherUserEmail == DatabaseManager.safeEmail(email: result.email)
             }) {
-                let vc = ChatViewController(with: targetConversation.otherUserEmail, id: targetConversation.id)
+                let vc = ConversationViewController(with: targetConversation.otherUserEmail, id: targetConversation.id)
                 vc.isNewConversation = false
                 vc.title = targetConversation.name
                 vc.navigationItem.largeTitleDisplayMode = .never
@@ -101,14 +101,14 @@ class ConversationViewController: UIViewController {
             switch result {
             
             case .success(let conversationId):
-                let vc = ChatViewController(with: email, id: conversationId)
+                let vc = ConversationViewController(with: email, id: conversationId)
                 vc.isNewConversation = false
                 vc.title = name
                 vc.navigationItem.largeTitleDisplayMode = .never
                 strongSelf.navigationController?.pushViewController(vc, animated: true)
             
             case .failure(_):
-                let vc = ChatViewController(with: email, id: nil)
+                let vc = ConversationViewController(with: email, id: nil)
                 vc.isNewConversation = true
                 vc.title = name
                 vc.navigationItem.largeTitleDisplayMode = .never
@@ -159,7 +159,7 @@ class ConversationViewController: UIViewController {
         guard let availableUser = Auth.auth().currentUser else {
             print("Not Logged In")
             spinner.dismiss()
-            let vc = LoginViewController()
+            let vc = UserLoginViewController()
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: false)
@@ -184,14 +184,14 @@ class ConversationViewController: UIViewController {
 
 }
 
-extension ConversationViewController: UITableViewDelegate, UITableViewDataSource {
+extension AllConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return conversations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = conversations[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationsTableViewCell.identifier, for: indexPath) as? ConversationsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: AllConversationsTableViewCell.identifier, for: indexPath) as? AllConversationsTableViewCell
         
         cell?.configure(with: model)
         return cell!
@@ -229,7 +229,7 @@ extension ConversationViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func openConversation(with model: Conversation) {
-        let vc = ChatViewController(with: model.otherUserEmail, id: model.id)
+        let vc = ConversationViewController(with: model.otherUserEmail, id: model.id)
         vc.title = model.name
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)

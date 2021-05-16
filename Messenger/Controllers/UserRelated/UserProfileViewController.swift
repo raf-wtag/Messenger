@@ -12,7 +12,7 @@ import GoogleSignIn
 import JGProgressHUD
 import SDWebImage
 
-class ProfileViewController: UIViewController {
+class UserProfileViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController {
             self?.logoutButtonPressed()
         }))
         
-        tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
+        tableView.register(UserProfileTableViewCell.self, forCellReuseIdentifier: UserProfileTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -128,7 +128,7 @@ class ProfileViewController: UIViewController {
             do {
                 try Auth.auth().signOut()
                 
-                let vc = LoginViewController()
+                let vc = UserLoginViewController()
                 let nav = UINavigationController(rootViewController: vc)
                 nav.modalPresentationStyle = .fullScreen
                 strongSelf.present(nav, animated: false)
@@ -147,13 +147,13 @@ class ProfileViewController: UIViewController {
     
 }
 
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+extension UserProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier, for: indexPath) as! ProfileTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserProfileTableViewCell.identifier, for: indexPath) as! UserProfileTableViewCell
 //        cell.textLabel?.text = data[indexPath.row]
 //        cell.textLabel?.textAlignment = .center
 //        cell.textLabel?.textColor = .red

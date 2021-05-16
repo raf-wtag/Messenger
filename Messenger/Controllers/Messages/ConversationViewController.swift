@@ -12,7 +12,7 @@ import SDWebImage
 import AVFoundation
 import AVKit
 
-class ChatViewController: MessagesViewController {
+class ConversationViewController: MessagesViewController {
     
     public static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -187,7 +187,7 @@ class ChatViewController: MessagesViewController {
 
 }
 
-extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
+extension ConversationViewController: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
     func currentSender() -> SenderType {
         if let sender = selfSender {
             return sender
@@ -219,7 +219,7 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
     }
 }
 
-extension ChatViewController: MessageCellDelegate {
+extension ConversationViewController: MessageCellDelegate {
     func didTapImage(in cell: MessageCollectionViewCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
             return
@@ -231,7 +231,7 @@ extension ChatViewController: MessageCellDelegate {
             guard let imageURL = media.url else {
                 return
             }
-            let vc = PhotoViewerViewController(with: imageURL)
+            let vc = PhotoMessageViewController(with: imageURL)
             self.navigationController?.pushViewController(vc, animated: true)
         case .video(let media):
             guard let videoURL = media.url else {
@@ -246,7 +246,7 @@ extension ChatViewController: MessageCellDelegate {
     }
 }
 
-extension ChatViewController: InputBarAccessoryViewDelegate {
+extension ConversationViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         guard !text.replacingOccurrences(of: " ", with: "").isEmpty,
               let selfSender = self.selfSender,
@@ -299,7 +299,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
 }
 
-extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }

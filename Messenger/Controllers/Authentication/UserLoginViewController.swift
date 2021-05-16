@@ -11,7 +11,7 @@ import FBSDKLoginKit
 import GoogleSignIn
 import JGProgressHUD
 
-class LoginViewController: UIViewController {
+class UserLoginViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
 
@@ -227,14 +227,14 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func didTapRegister() {
-        let vc = RegistrationViewController()
+        let vc = UserRegistrationViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 
 }
 
 
-extension LoginViewController : UITextFieldDelegate {
+extension UserLoginViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField {
             passwordField.becomeFirstResponder()
@@ -246,7 +246,7 @@ extension LoginViewController : UITextFieldDelegate {
     }
 }
 
-extension LoginViewController: LoginButtonDelegate {
+extension UserLoginViewController: LoginButtonDelegate {
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         guard let token = result?.token?.tokenString else {
             print("Failded to login using Facebook")

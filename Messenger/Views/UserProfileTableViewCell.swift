@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileTableViewCell: UITableViewCell {
+class UserProfileTableViewCell: UITableViewCell {
     
     static var identifier = "profileTableviewCell"
 

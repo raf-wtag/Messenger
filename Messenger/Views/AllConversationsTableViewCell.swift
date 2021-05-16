@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class ConversationsTableViewCell: UITableViewCell{
+class AllConversationsTableViewCell: UITableViewCell{
     
     static let identifier = "customTableCell"
 

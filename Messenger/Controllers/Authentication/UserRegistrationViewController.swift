@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class RegistrationViewController: UIViewController {
+class UserRegistrationViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
 
@@ -305,7 +305,7 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc private func didTapRegister() {
-        let vc = RegistrationViewController()
+        let vc = UserRegistrationViewController()
         vc.title = "Create Account"
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -313,7 +313,7 @@ class RegistrationViewController: UIViewController {
 }
 
 
-extension RegistrationViewController : UITextFieldDelegate {
+extension UserRegistrationViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == firstNameField {
             lastNameField.becomeFirstResponder()
@@ -330,7 +330,7 @@ extension RegistrationViewController : UITextFieldDelegate {
     }
 }
 
-extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension UserRegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
