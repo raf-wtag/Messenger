@@ -1,18 +1,30 @@
-## Messenger
-
-    How to Run this Project:
-     1. Info.plist with facebook app configuration
-     2. GoogleService-Info.plist for google project setup
-     3. Run `pod install` to install the libraries
-     
+## Messenger     
      
 ### Features
     1. user can sign up using email/password
     2. user can login using registered email/using facebook/using google account
-    3. user can send text messages to the other registered user, they can find other users searching by ther name.
+    3. user find other users searching by ther name
+    4. user can send Text, Photo and Video Messages 
+    5. User can delete a conversation
     
+### ScreenShots
     
-### TODO:
-    1. Delete conversation
-    2. Send Images/Videos
-    3. Improve UI
+    Login:
+    ![Login](./readme_assets/Login.png)
+    
+    Registration:
+    ![Registration](./readme_assets/Registration.png)
+    
+    userProfile:
+    ![Profile](./readme_assets/Profile.png)
+    
+    AllConversationsList:
+    ![AllConversations](./readme_assets/conversations.png)
+    
+    Conversation:
+    ![Chat](./readme_assets/messages.png)
+    
+    SearchUser:
+    ![Registration](./readme_assets/user_search.png)
+
+
