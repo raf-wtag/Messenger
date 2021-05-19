@@ -324,7 +324,7 @@ extension DatabaseManager {
                 var messageType: MessageKind?
                 if type == "photo" {
                     guard let targetURL = URL(string: content),
-                          let placeholder = UIImage(systemName: "plus") else {
+                          let placeholder = UIImage(named: "cross") else {
                         return nil
                     }
                     

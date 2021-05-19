@@ -15,7 +15,12 @@ class UserRegistrationViewController: UIViewController {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.circle")
+//        imageView.image = UIImage(systemName: "person.circle")
+        if #available(iOS 13.0, *) {
+            imageView.image = UIImage(systemName: "person.circle")
+        } else {
+            imageView.image =  UIImage(named: "person")
+        }
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
@@ -50,7 +55,12 @@ class UserRegistrationViewController: UIViewController {
         field.placeholder = "First Name"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .secondarySystemBackground
+//        field.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            field.backgroundColor = .secondarySystemBackground
+        } else {
+            field.backgroundColor = .gray
+        }
         
         return field
     }()
@@ -66,7 +76,12 @@ class UserRegistrationViewController: UIViewController {
         field.placeholder = "Last Name"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .secondarySystemBackground
+//        field.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            field.backgroundColor = .secondarySystemBackground
+        } else {
+            field.backgroundColor = .gray
+        }
         
         return field
     }()
@@ -82,7 +97,12 @@ class UserRegistrationViewController: UIViewController {
         field.placeholder = "Email"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .secondarySystemBackground
+//        field.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            field.backgroundColor = .secondarySystemBackground
+        } else {
+            field.backgroundColor = .gray
+        }
         
         return field
     }()
@@ -98,7 +118,12 @@ class UserRegistrationViewController: UIViewController {
         field.placeholder = "Password"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .secondarySystemBackground
+//        field.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            field.backgroundColor = .secondarySystemBackground
+        } else {
+            field.backgroundColor = .gray
+        }
         field.isSecureTextEntry = true
         
         return field
@@ -115,7 +140,12 @@ class UserRegistrationViewController: UIViewController {
         field.placeholder = "Repeat Password"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .secondarySystemBackground
+//        field.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            field.backgroundColor = .secondarySystemBackground
+        } else {
+            field.backgroundColor = .gray
+        }
         field.isSecureTextEntry = true
         
         return field
@@ -137,7 +167,12 @@ class UserRegistrationViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Create Account"
-        view.backgroundColor = .systemBackground
+//        view.backgroundColor = .systemBackground
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
         
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         

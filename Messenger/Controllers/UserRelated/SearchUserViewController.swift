@@ -52,7 +52,12 @@ class SearchUserViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        view.backgroundColor = .systemBackground
+//        view.backgroundColor = .systemBackground
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
         navigationController?.navigationBar.topItem?.titleView = searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(dismissThisVC))
         searchBar.becomeFirstResponder()

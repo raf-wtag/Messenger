@@ -41,7 +41,12 @@ class UserLoginViewController: UIViewController {
         field.placeholder = "Email"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .secondarySystemBackground
+//        field.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            field.backgroundColor = .secondarySystemBackground
+        } else {
+            field.backgroundColor = .gray
+        }
         
         return field
     }()
@@ -57,7 +62,12 @@ class UserLoginViewController: UIViewController {
         field.placeholder = "Password"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .secondarySystemBackground
+//        field.backgroundColor = .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            field.backgroundColor = .secondarySystemBackground
+        } else {
+            field.backgroundColor = .gray
+        }
         field.isSecureTextEntry = true
         
         return field
@@ -66,7 +76,12 @@ class UserLoginViewController: UIViewController {
     private let loginByEmailButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
-        button.backgroundColor = .link
+//        button.backgroundColor = .link
+        if #available(iOS 13.0, *) {
+            button.backgroundColor = .link
+        } else {
+            button.backgroundColor = .blue
+        }
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
@@ -99,7 +114,12 @@ class UserLoginViewController: UIViewController {
         })
 
         title = "Log In"
-        view.backgroundColor = .systemBackground
+//        view.backgroundColor = .systemBackground
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
                                                                                     style: .done,

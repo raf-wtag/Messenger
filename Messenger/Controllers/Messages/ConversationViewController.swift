@@ -95,7 +95,12 @@ class ConversationViewController: MessagesViewController {
     private func setupInputButtons() {
         let button = InputBarButtonItem()
         button.setSize(CGSize(width: 30, height: 30), animated: false)
-        button.setImage(UIImage(systemName: "paperclip"), for: .normal)
+//        button.setImage(UIImage(systemName: "paperclip"), for: .normal)
+        if #available(iOS 13.0, *) {
+            button.setImage(UIImage(systemName: "paperclip"), for: .normal)
+        } else {
+            button.setImage(UIImage(named: "paperIcon"), for: .normal)
+        }
         button.onTouchUpInside({ [weak self]  _ in
             self?.presentActionSheet()
         })
@@ -224,9 +229,19 @@ extension ConversationViewController: MessagesDataSource, MessagesLayoutDelegate
         let sender = message.sender
         
         if sender.senderId == selfSender?.senderId {
-            return .link
+//            return .link
+            if #available(iOS 13.0, *) {
+                return .link
+            } else {
+                return .blue
+            }
         }
-        return .secondarySystemBackground
+//        return .secondarySystemBackground
+        if #available(iOS 13.0, *) {
+            return .secondarySystemBackground
+        } else {
+            return .gray
+        }
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
@@ -387,7 +402,8 @@ extension ConversationViewController: UIImagePickerControllerDelegate, UINavigat
                 case .success(let url):
                     print("uploaded image name - ", fileName)
                     
-                    guard let mediaURL = URL(string: url), let placeholder = UIImage(systemName: "stop") else {
+                    guard let mediaURL = URL(string: url),
+                          let placeholder = UIImage(named: "cross") else {
                         return
                     }
                     
@@ -429,7 +445,7 @@ extension ConversationViewController: UIImagePickerControllerDelegate, UINavigat
                     print("uploaded video name - ", fileName)
                     print("uploaded video url - ", videoURL)
                     
-                    guard let mediaURL = URL(string: url), let placeholder = UIImage(systemName: "stop") else {
+                    guard let mediaURL = URL(string: url), let placeholder = UIImage(named: "cross") else {
                         return
                     }
                     
